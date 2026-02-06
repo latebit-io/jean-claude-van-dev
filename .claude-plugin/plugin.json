@@ -1,0 +1,28 @@
+{
+  "name": "jean-claude-van-dev",
+  "version": "0.1.0",
+  "description": "A full team of world-class Go staff engineers — architect, reviewer, debugger, tester, refactorer — with idiomatic Go rules, slash commands, and auto-quality hooks",
+  "author": {
+    "name": "latebit.io"
+  },
+  "repository": "https://github.com/latebit-io/jean-claude-van-dev",
+  "license": "MIT",
+  "keywords": [
+    "go",
+    "golang",
+    "staff-engineer",
+    "code-review",
+    "architecture",
+    "testing",
+    "debugging",
+    "refactoring"
+  ],
+  "agents": [
+    "./agents/go-architect.md",
+    "./agents/go-reviewer.md",
+    "./agents/go-debugger.md",
+    "./agents/go-tester.md",
+    "./agents/go-refactorer.md"
+  ],
+  "skills": ["./skills/"]
+}
