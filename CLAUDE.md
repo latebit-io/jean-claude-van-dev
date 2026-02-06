@@ -55,9 +55,7 @@ The script is safe to re-run — it replaces existing symlinks and refuses to ov
 
 ```bash
 # Validate JSON files
-python3 -c "import json; json.load(open('.claude-plugin/plugin.json')); print('ok')"
-python3 -c "import json; json.load(open('.claude-plugin/marketplace.json')); print('ok')"
-python3 -c "import json; json.load(open('hooks/hooks.json')); print('ok')"
+jq empty .claude-plugin/plugin.json .claude-plugin/marketplace.json hooks/hooks.json
 
 # Validate plugin structure
 claude plugin validate .
