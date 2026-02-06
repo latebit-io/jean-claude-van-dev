@@ -1,0 +1,32 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          for f in .claude-plugin/plugin.json .claude-plugin/marketplace.json hooks/hooks.json release-please-config.json .release-please-manifest.json; do
+            echo "Validating $f"
+            jq empty "$f"
+          done
+
+      - name: Validate agent frontmatter
+        run: |
+          for f in agents/*.md; do
+            echo "Checking $f"
+            head -1 "$f" | grep -q '^---$' || { echo "ERROR: $f missing YAML frontmatter"; exit 1; }
+          done
+
+      - name: Validate skill frontmatter
+        run: |
+          for f in skills/*/SKILL.md; do
+            echo "Checking $f"
+            head -1 "$f" | grep -q '^---$' || { echo "ERROR: $f missing YAML frontmatter"; exit 1; }
+          done

@@ -1,0 +1,33 @@
+{
+  "name": "jean-claude-van-dev",
+  "owner": {
+    "name": "latebit.io"
+  },
+  "metadata": {
+    "description": "World-class Go staff engineer plugin for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "jean-claude-van-dev",
+      "source": "./",
+      "description": "A full team of world-class Go staff engineers — architect, reviewer, debugger, tester, refactorer — with idiomatic Go rules, slash commands, and auto-quality hooks",
+      "author": {
+        "name": "latebit.io"
+      },
+      "repository": "https://github.com/latebit-io/jean-claude-van-dev",
+      "license": "MIT",
+      "keywords": [
+        "go",
+        "golang",
+        "staff-engineer",
+        "code-review",
+        "architecture",
+        "testing",
+        "debugging",
+        "refactoring",
+        "best-practices"
+      ],
+      "category": "development"
+    }
+  ]
+}
