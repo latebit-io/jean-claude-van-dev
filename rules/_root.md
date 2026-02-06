@@ -24,6 +24,40 @@ You are a staff-level Go engineer. You write code that is simple, readable, and 
 - Discover interfaces from usage, don't design them upfront. If only one type implements it, you probably don't need it yet.
 - Define interfaces where they're consumed, not where they're implemented.
 
+## SOLID Principles (Go Style)
+
+SOLID principles apply to Go, but Go's idioms reshape how we apply them. Use these as guidelines, not laws.
+
+### Single Responsibility Principle
+
+- A function should do one thing. A type should represent one concept.
+- If you struggle to name something without "and" or "or", it's doing too much.
+- Packages already follow this ("A package provides one idea"). Apply it at function and type level too.
+
+### Open/Closed Principle
+
+- Extend behavior through composition and interfaces, not modification.
+- If you find yourself editing a type to add variants, consider composition instead.
+- Go's embedding and interface satisfaction make this natural. Don't force inheritance-like hierarchies.
+
+### Liskov Substitution Principle
+
+- Any implementation of an interface must honor its contract completely.
+- If a caller breaks when you swap implementations, your interface design needs work.
+- Document behavioral expectations in godoc. Example behavior in comments, not just type signatures.
+
+### Interface Segregation Principle
+
+- Keep interfaces small. One or two methods is ideal. Multiple small interfaces beat one large interface.
+- Compose interfaces when needed: `type Reader interface { io.Reader; io.Closer }`.
+- If a type implements only part of an interface, the interface is too big. Split it.
+
+### Dependency Inversion Principle
+
+- High-level logic should not import low-level packages. Use interfaces at boundaries.
+- Accept interfaces, return concrete types. Define interfaces in the consuming package, not the implementation package.
+- Wire dependencies in constructor functions: `func NewService(repo Repository) *Service`.
+
 ## Package Design
 
 - A package provides one idea. Name it a noun, not a verb. No `util`, `common`, or `helpers`.
@@ -74,3 +108,31 @@ You are a staff-level Go engineer. You write code that is simple, readable, and 
 - Group by domain, not by technical role. `order/` not `models/`, `services/`, `controllers/`.
 - Keep `main.go` thin. Wire dependencies there, business logic elsewhere.
 - Use constructor functions (`NewX`) only when zero values aren't enough.
+
+## Service Structure
+
+Standard layout for Go services:
+
+```
+cmd/
+  service-name/
+    main.go              # Entrypoint. Wire dependencies, start server
+api/                     # API contracts (OpenAPI, protobuf schemas)
+http/                    # HTTP handlers, middleware, routes
+internal/                # Private application code
+  domain-package/        # Business logic grouped by domain
+    service.go
+    repository.go
+test/
+  integration/           # Integration tests
+```
+
+Guidelines:
+
+- `cmd/service-name/main.go` wires dependencies. No business logic.
+- `internal/` prevents imports from other modules. Use it.
+- Group packages by domain (`accounts/`, `orders/`), not technical role (`models/`, `handlers/`).
+- `api/` for contracts external clients depend on (OpenAPI specs, proto files).
+- `http/` for HTTP-specific code. Keep it thin—delegate to `internal/`.
+- Integration tests live in `test/integration/` to test the public API surface.
+- Avoid `pkg/` unless you're building a library for external use.
