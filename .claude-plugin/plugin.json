@@ -1,6 +1,6 @@
 {
   "name": "jean-claude-van-dev",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A full team of world-class Go staff engineers — architect, reviewer, debugger, tester, refactorer — with idiomatic Go rules, slash commands, and auto-quality hooks",
   "author": {
     "name": "latebit.io"
@@ -24,5 +24,7 @@
     "./agents/go-tester.md",
     "./agents/go-refactorer.md"
   ],
-  "skills": ["./skills/"]
+  "skills": [
+    "./skills/"
+  ]
 }
